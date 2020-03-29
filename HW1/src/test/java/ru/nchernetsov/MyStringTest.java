@@ -23,7 +23,7 @@ public class MyStringTest {
 
     @Test
     public void symbolConstructorTest() {
-        MyString string = new MyString("a");
+        MyString string = new MyString('a');
         assertThat(string.getSymbols()).containsExactly('a');
         assertThat(string.getLength()).isEqualTo(1);
         assertThat(string.getBytesLength()).isEqualTo(2);

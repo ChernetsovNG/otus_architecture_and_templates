@@ -21,3 +21,7 @@ subprojects {
         testCompile group: 'org.assertj', name: 'assertj-core', version: '3.15.0'
     }
 }
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '6.3'
+}

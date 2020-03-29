@@ -2,7 +2,8 @@ package ru.nchernetsov;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static ru.nchernetsov.Utils.listToCharArray;
 
 /**
  * Класс "Строка"
@@ -93,8 +94,6 @@ public class MyString {
 
     @Override
     public String toString() {
-        return symbols.stream()
-                .map(String::valueOf)
-                .collect(Collectors.joining());
+        return new String(listToCharArray(symbols));
     }
 }

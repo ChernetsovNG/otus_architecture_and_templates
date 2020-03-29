@@ -39,4 +39,10 @@ public class MyStringTest {
         assertThat(string.getSymbols()).isEmpty();
         assertThat(string.getLength()).isEqualTo(0);
     }
+
+    @Test
+    public void toStringTest() {
+        MyString string = new MyString("hello");
+        assertThat(string.toString()).isEqualTo("hello");
+    }
 }

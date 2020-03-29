@@ -2,6 +2,8 @@ package ru.nchernetsov;
 
 import java.util.List;
 
+import static ru.nchernetsov.Utils.listToCharArray;
+
 /**
  * Класс работы со строками, который также может возвращать как массив символов либо всю строку, либо её часть
  */
@@ -14,14 +16,7 @@ public class StringWorker {
      * @return массив символов
      */
     public char[] getStringSymbols(MyString string) {
-        int length = string.getLength();
-        List<Character> symbols = string.getSymbols();
-        char[] chars = new char[length];
-        for (int i = 0; i < length; i++) {
-            Character symbol = symbols.get(i);
-            chars[i] = symbol;
-        }
-        return chars;
+        return listToCharArray(string.getSymbols());
     }
 
     /**
@@ -38,8 +33,7 @@ public class StringWorker {
         List<Character> symbols = string.getSymbols();
         char[] chars = new char[to - from];
         for (int i = from; i < to; i++) {
-            Character symbol = symbols.get(i);
-            chars[i - from] = symbol;
+            chars[i - from] = symbols.get(i);
         }
         return chars;
     }

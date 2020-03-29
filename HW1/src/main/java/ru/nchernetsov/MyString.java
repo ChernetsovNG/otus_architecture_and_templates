@@ -52,13 +52,17 @@ public class MyString {
         bytesLength = Character.BYTES;
     }
 
+    public List<Character> getSymbols() {
+        return new ArrayList<>(symbols);
+    }
+
     /**
      * Метод получения длины строки (в символах)
      *
      * @return количество символов в строке
      */
-    public long length() {
-        return bytesLength / Character.BYTES;
+    public int getLength() {
+        return (int) (bytesLength / Character.BYTES);
     }
 
     /**
@@ -66,7 +70,7 @@ public class MyString {
      *
      * @return длина строки в байтах
      */
-    public long bytesLength() {
+    public long getBytesLength() {
         return bytesLength;
     }
 
@@ -84,10 +88,5 @@ public class MyString {
     public void destructor() {
         symbols = new ArrayList<>();
         bytesLength = 0;
-    }
-
-    @Override
-    public String toString() {
-        return "MyString{symbols=" + symbols + "}";
     }
 }

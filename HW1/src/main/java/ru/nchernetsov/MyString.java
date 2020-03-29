@@ -2,6 +2,7 @@ package ru.nchernetsov;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Класс "Строка"
@@ -88,5 +89,12 @@ public class MyString {
     public void destructor() {
         symbols = new ArrayList<>();
         bytesLength = 0;
+    }
+
+    @Override
+    public String toString() {
+        return symbols.stream()
+                .map(String::valueOf)
+                .collect(Collectors.joining());
     }
 }

@@ -19,6 +19,11 @@ public class StringStackTest {
         stack = new StringStack(5);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void negativeSizeShouldThrowException() {
+        stack = new StringStack(-1);
+    }
+
     @Test
     public void pushTest() {
         assertTrue(stack.isEmpty());

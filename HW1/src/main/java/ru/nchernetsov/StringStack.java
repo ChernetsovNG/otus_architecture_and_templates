@@ -56,7 +56,7 @@ public class StringStack {
     }
 
     /**
-     * Пуст ли стек
+     * Пуст ли стек?
      *
      * @return true - если стек пуст, false - в противном случае
      */

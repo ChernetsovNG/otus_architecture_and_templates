@@ -1,27 +1,26 @@
 package ru.nchernetsov;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class StringStackTest {
 
     private StringStack stack;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         stack = new StringStack(5);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void negativeSizeShouldThrowException() {
-        stack = new StringStack(-1);
+        assertThrows(IllegalArgumentException.class, () -> stack = new StringStack(-1));
     }
 
     @Test
@@ -40,9 +39,9 @@ public class StringStackTest {
         assertTrue(stack.isEmpty());
     }
 
-    @Test(expected = NoSuchElementException.class)
+    @Test
     public void popEmptyTest() {
-        stack.pop();
+        assertThrows(NoSuchElementException.class, () -> stack.pop());
     }
 
     @Test
@@ -53,9 +52,9 @@ public class StringStackTest {
         assertFalse(stack.isEmpty());
     }
 
-    @Test(expected = NoSuchElementException.class)
+    @Test
     public void peekEmptyTest() {
-        stack.peek();
+        assertThrows(NoSuchElementException.class, () -> stack.peek());
     }
 
     @Test

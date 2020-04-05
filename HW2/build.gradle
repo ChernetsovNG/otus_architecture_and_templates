@@ -6,7 +6,3 @@ group 'ru.nchernetsov'
 version '0.1-SNAPSHOT'
 
 sourceCompatibility = 1.8
-
-repositories {
-    mavenCentral()
-}

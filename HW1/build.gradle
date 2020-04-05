@@ -5,7 +5,3 @@ plugins {
 group 'ru.nchernetsov'
 
 sourceCompatibility = 1.8
-
-repositories {
-    mavenCentral()
-}

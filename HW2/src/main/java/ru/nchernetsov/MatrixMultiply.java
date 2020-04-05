@@ -7,7 +7,7 @@ public interface MatrixMultiply {
      *
      * @param A матрица A
      * @param B матрица B
-     * @return произведение матрица A x B
+     * @return произведение матриц A x B
      */
     long[][] multiply(long[][] A, long[][] B);
 

@@ -69,26 +69,11 @@ public class ParallelMultiply implements MatrixMultiply {
 
     private boolean calculate(long[][] A, long[][] B, long[][] C) {
         // пока вся матрица не вычислена, пытаемся найти следующий элемент для вычисления и вычислить его
-        while (resultIsNotCalculated()) {
-            Pair<Integer, Integer> nextElementToCalculate = findNextElementToCalculate();
-            // если есть следующий элемент для вычисления
-            if (nextElementToCalculate != null) {
-                int i = nextElementToCalculate.getFirst();
-                int j = nextElementToCalculate.getSecond();
-                Lock mutex = mutexes[i][j];
-                // пытаемся захватить мьютекс для него
-                if (mutex.tryLock()) {
-                    // если мьютекс захвачен, то вычисляем элемент результирующей матрицы
-                    try {
-                        long sum = 0;
-                        for (int k = 0; k < N; k++) {
-                            sum += A[i][k] * B[k][j];
-                        }
-                        C[i][j] = sum;
-                        calculated[i][j] = true;  // элемент i,j вычислен
-                    } finally {
-                        mutex.unlock();
-                    }
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                // если элемент ещё не вычислен
+                if (!calculated[i][j]) {
+                    tryCalculate(i, j, A, B, C);
                 }
             }
         }
@@ -96,21 +81,22 @@ public class ParallelMultiply implements MatrixMultiply {
         return true;
     }
 
-    private boolean resultIsNotCalculated() {
-        // если последний элемент вычислен, то и результат вычислен (т.к. поиск элементов идёт слева-направо и сверху-вниз)
-        return !calculated[N - 1][N - 1];
-    }
-
-    private Pair<Integer, Integer> findNextElementToCalculate() {
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < N; j++) {
-                // если элемент ещё не вычислен
-                if (!calculated[i][j]) {
-                    return Pair.of(i, j);
+    private void tryCalculate(int i, int j, long[][] A, long[][] B, long[][] C) {
+        // пытаемся захватить мьютекс для него
+        Lock mutex = mutexes[i][j];
+        if (mutex.tryLock()) {
+            // если мьютекс захвачен, то вычисляем элемент результирующей матрицы
+            try {
+                long sum = 0;
+                for (int k = 0; k < N; k++) {
+                    sum += A[i][k] * B[k][j];
                 }
+                C[i][j] = sum;
+                calculated[i][j] = true;  // элемент i,j вычислен
+            } finally {
+                mutex.unlock();
             }
         }
-        return null;
     }
 
     private void initMutexesAndCalculatedFlags(int N) {

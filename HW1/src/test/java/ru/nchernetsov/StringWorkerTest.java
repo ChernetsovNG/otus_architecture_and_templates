@@ -1,15 +1,16 @@
 package ru.nchernetsov;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class StringWorkerTest {
 
     private StringWorker stringWorker;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         stringWorker = new StringWorker();
     }
@@ -30,18 +31,21 @@ public class StringWorkerTest {
         assertThat(symbols).hasSize(3);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void shouldThrowExceptionIfFromBiggerThanStringLength() {
-        stringWorker.getSubstringSymbols(new MyString("hello"), 10, 5);
+        assertThrows(IllegalArgumentException.class, () ->
+                stringWorker.getSubstringSymbols(new MyString("hello"), 10, 5));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void shouldThrowExceptionIfToLowerThanZero() {
-        stringWorker.getSubstringSymbols(new MyString("hello"), 2, -7);
+        assertThrows(IllegalArgumentException.class, () ->
+                stringWorker.getSubstringSymbols(new MyString("hello"), 2, -7));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void shouldThrowExceptionIfFromBiggerThanTo() {
-        stringWorker.getSubstringSymbols(new MyString("hello"), 3, 1);
+        assertThrows(IllegalArgumentException.class, () ->
+                stringWorker.getSubstringSymbols(new MyString("hello"), 3, 1));
     }
 }
